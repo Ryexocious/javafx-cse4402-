@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="15" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.LoginController" styleClass="container">
+
+    <Label text="Login to ElderCareApp" styleClass="title" />
+    
+    <TextField fx:id="usernameField" promptText="Username" />
+    <PasswordField fx:id="passwordField" promptText="Password" />
+    
+    <ChoiceBox fx:id="roleChoiceBox" promptText="Select Role" />
+    
+    <Button fx:id="loginButton" text="Login" onAction="#handleLogin" styleClass="btn-primary"/>
+    <Button fx:id="registerButton" text="Go to Registration" onAction="#handleRegistration" styleClass="btn-secondary"/>
+    
+    <Label fx:id="messageLabel" styleClass="error-label"/>
+</VBox>

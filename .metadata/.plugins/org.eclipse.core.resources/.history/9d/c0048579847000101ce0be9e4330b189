@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.LoginController"
+            prefWidth="480" prefHeight="580"
+            stylesheets="@../styles/main.css">
+
+    <VBox spacing="10" alignment="CENTER"
+          AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
+          AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20"
+          styleClass="container">
+
+        <Label text="Login to ElderCareApp" styleClass="title"/>
+
+        <!-- Username Label -->
+        <Label text="Username" styleClass="label"/>
+
+        <TextField fx:id="usernameField" promptText="Username" maxWidth="300"/>
+
+        <!-- Password Label -->
+        <Label text="Password" styleClass="label"/>
+
+        <PasswordField fx:id="passwordField" promptText="Password" maxWidth="300"/>
+
+        <ComboBox fx:id="roleChoiceBox" promptText="Select Role" maxWidth="300"/>
+
+        <Label fx:id="messageLabel" textFill="red" maxWidth="300" wrapText="true"/>
+
+        <Button text="Login" styleClass="btn-primary" maxWidth="200" onAction="#handleLogin"/>
+
+        <Button text="Go to Registration" maxWidth="200" onAction="#handleRegistration"/>
+
+    </VBox>
+</AnchorPane>

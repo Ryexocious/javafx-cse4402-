@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="application.PomodoroController">
+    <VBox fx:id="rootVBox" alignment="CENTER" spacing="10" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <padding>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </padding>
+
+        <Label fx:id="sessionLabel" text="Work Session"/>
+        <Label fx:id="timerLabel" text="25:00"/>
+        <ProgressBar fx:id="progressBar" prefWidth="250" progress="0.0"/>
+
+        <HBox spacing="10">
+            <Button text="Start" onAction="#startTimer"/>
+            <Button text="Pause" onAction="#pauseTimer"/>
+            <Button text="Reset" onAction="#resetTimer"/>
+        </HBox>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Work Duration (min):"/>
+            <TextField fx:id="workDurationInput" promptText="Minutes" prefWidth="60"/>
+            <Label text="Break Duration (min):"/>
+            <TextField fx:id="breakDurationInput" promptText="Minutes" prefWidth="60"/>
+        </HBox>
+
+        <Label text="* Long break occurs after 4 work sessions and lasts 20 minutes"
+               style="-fx-font-style: italic; -fx-font-size: 11px;"/>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="taskInput" promptText="Enter task" prefWidth="200"/>
+            <Button text="Add Task" onAction="#addTask"/>
+        </HBox>
+
+        <ListView fx:id="taskList" prefHeight="120" prefWidth="280"/>
+
+        <!-- Dark mode toggle -->
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10 0 0 0;">
+            <Label text="Dark Mode:"/>
+            <ToggleButton fx:id="modeToggle" onAction="#toggleMode"/>
+        </HBox>
+
+    </VBox>
+</AnchorPane>

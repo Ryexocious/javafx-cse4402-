@@ -1,0 +1,115 @@
+package controller;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
+
+import java.io.IOException;
+import java.net.URL;
+
+public class LoginController {
+
+    @FXML private TextField usernameField;
+    @FXML private PasswordField passwordField;
+    @FXML private ComboBox<String> roleChoiceBox;
+    @FXML private Label messageLabel;
+
+    @FXML
+    public void initialize() {
+        roleChoiceBox.getItems().addAll("Elder", "Caretaker");
+    }
+
+    @FXML
+    private void handleLogin() {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String role = roleChoiceBox.getValue();
+
+        if (username.isEmpty() || password.isEmpty() || role == null) {
+            messageLabel.setText("Please fill all fields and select a role.");
+            return;
+        }
+
+        // TODO: Replace with actual login verification
+        messageLabel.setText("Login successful!");
+
+        // After login success, navigate to post registration page
+        goToPostRegistration();
+    }
+
+    @FXML
+    private void handleRegistration() {
+        String role = roleChoiceBox.getValue();
+
+        if (role == null) {
+            messageLabel.setText("Please select a role before registering.");
+            return;
+        }
+
+        String fxmlPath = "/fxml/Registration.fxml";
+
+        try {
+            URL resourceUrl = getClass().getResource(fxmlPath);
+            if (resourceUrl == null) {
+                messageLabel.setText("Could not find registration page resource.");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
+            Pane root = loader.load();
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Fade transition for smooth effect
+            FadeTransition ft = new FadeTransition(Duration.millis(400), root);
+            ft.setFromValue(0);
+            ft.setToValue(1);
+            ft.play();
+
+            stage.setScene(scene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            messageLabel.setText("Failed to load registration page.");
+        }
+    }
+
+    private void goToPostRegistration() {
+        String fxmlPath = "/fxml/PostRegistration.fxml";
+
+        try {
+            URL resourceUrl = getClass().getResource(fxmlPath);
+            if (resourceUrl == null) {
+                messageLabel.setText("Could not find post-registration page resource.");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
+            Pane root = loader.load();
+
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Optional: fade transition for smooth effect
+            FadeTransition ft = new FadeTransition(Duration.millis(400), root);
+            ft.setFromValue(0);
+            ft.setToValue(1);
+            ft.play();
+
+            stage.setScene(scene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            messageLabel.setText("Failed to load post-registration page.");
+        }
+    }
+}

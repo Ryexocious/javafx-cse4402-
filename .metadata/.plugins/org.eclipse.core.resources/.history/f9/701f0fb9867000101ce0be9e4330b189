@@ -1,0 +1,123 @@
+package controller;
+
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import model.User;
+import utils.PairingCodeGenerator;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+public class RegistrationController {
+
+    @FXML private TextField nameField;
+    @FXML private TextField emailField;
+    @FXML private TextField phoneField;
+    @FXML private PasswordField passwordField;
+    @FXML private ComboBox<String> roleComboBox;
+    @FXML private TextField pairingCodeField;
+    @FXML private TextField usernameField;
+
+    @FXML private Label pairingCodeLabel;
+    @FXML private Label errorLabel;
+    @FXML private Button registerButton;
+
+    @FXML private HBox emailBox, pairingCodeBox;
+
+    @FXML
+    public void initialize() {
+        roleComboBox.getItems().addAll("Elder", "Caretaker");
+
+        // Hide caretaker-specific fields by default
+        emailBox.setVisible(false);
+        emailBox.setManaged(false);
+        pairingCodeBox.setVisible(false);
+        pairingCodeBox.setManaged(false);
+
+        roleComboBox.setOnAction(e -> {
+            String role = roleComboBox.getValue();
+            boolean isElder = "Elder".equals(role);
+
+            emailBox.setVisible(!isElder);
+            emailBox.setManaged(!isElder);
+            pairingCodeBox.setVisible(!isElder);
+            pairingCodeBox.setManaged(!isElder);
+        });
+    }
+
+    @FXML
+    private void handleRegistration() {
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String phone = phoneField.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String role = roleComboBox.getValue();
+        String pairingCode = pairingCodeField.getText();
+
+        if (name.isEmpty() || username.isEmpty() || password.isEmpty() || role == null) {
+            errorLabel.setText("Please fill in all required fields.");
+            return;
+        }
+
+        if ("Caretaker".equals(role)) {
+            if (email.isEmpty() || phone.isEmpty() || pairingCode.isEmpty()) {
+                errorLabel.setText("Caretakers must fill email, phone, and pairing code.");
+                return;
+            }
+        }
+
+        // Simulate saving user (you can implement User class later)
+        User user = new User(name, username, password, role);
+
+        // Generate data for PostRegistration
+        String postData = "Elder".equals(role)
+                ? PairingCodeGenerator.generate()
+                : name;  // Simulate showing elder name
+
+        goToPostRegistration(role, postData);
+    }
+
+    private void goToPostRegistration(String role, String data) {
+        try {
+            String basePath = System.getProperty("user.dir"); // e.g., D:/projectBrightImpact/Project-Bright-Impact/ElderCareApp
+            File file = new File(basePath + "/src/fxml/post_registration.fxml");
+
+            if (!file.exists()) {
+                errorLabel.setText("FXML not found: " + file.getPath());
+                return;
+            }
+
+            URL resourceUrl = file.toURI().toURL();
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
+            Pane root = loader.load();
+
+            // Inject role and data into PostRegistrationController
+            PostRegistrationController controller = loader.getController();
+            controller.initializeView(role, data);
+
+            Stage stage = (Stage) nameField.getScene().getWindow();
+            Scene scene = new Scene(root);
+
+            // Smooth transition
+            FadeTransition ft = new FadeTransition(Duration.millis(400), root);
+            ft.setFromValue(0);
+            ft.setToValue(1);
+            ft.play();
+
+            stage.setScene(scene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            errorLabel.setText("Failed to load post-registration page.");
+        }
+    }
+}

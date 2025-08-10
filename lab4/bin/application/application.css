@@ -1,0 +1,32 @@
+/* Light Mode */
+.light-mode {
+    -fx-background-color: #add8e6; /* Light Blue */
+    -fx-text-fill: black;
+}
+
+.light-mode .label,
+.light-mode .button,
+.light-mode .text-field,
+.light-mode .list-view {
+    -fx-text-fill: black;
+    -fx-background-color: white;
+}
+
+/* Dark Mode */
+.dark-mode {
+    -fx-background-color: #121212;
+    -fx-text-fill: white;
+}
+
+.dark-mode .label,
+.dark-mode .button,
+.dark-mode .text-field,
+.dark-mode .list-view {
+    -fx-text-fill: white;
+    -fx-background-color: #333333;
+}
+
+/* Style buttons */
+.button {
+    -fx-font-weight: bold;
+}
