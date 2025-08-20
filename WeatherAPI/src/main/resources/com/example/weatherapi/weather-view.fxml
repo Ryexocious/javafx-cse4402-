@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.weatherapi.WeatherController">
+    <top>
+        <!-- Header Section -->
+        <VBox styleClass="header-section">
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+                <padding>
+                    <Insets bottom="10.0" left="20.0" right="20.0" top="15.0" />
+                </padding>
+                <Label styleClass="app-title" text="Weather Forecast">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="themeToggleButton" styleClass="theme-button" text="🌙" />
+            </HBox>
+
+            <!-- Search Section -->
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                <padding>
+                    <Insets bottom="15.0" left="20.0" right="20.0" top="5.0" />
+                </padding>
+                <TextField fx:id="citySearchField" promptText="Enter city name..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+                <Button fx:id="searchButton" styleClass="search-button" text="Search" />
+                <ProgressIndicator fx:id="loadingIndicator" prefHeight="25.0" prefWidth="25.0" />
+            </HBox>
+
+            <!-- Error Message -->
+            <Label fx:id="errorLabel" styleClass="error-label" visible="false">
+                <padding>
+                    <Insets left="20.0" right="20.0" />
+                </padding>
+            </Label>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="main-scroll">
+            <VBox spacing="20.0">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                </padding>
+
+                <!-- Current Weather Section -->
+                <VBox styleClass="weather-section">
+                    <Label styleClass="section-title" text="Current Weather">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                    </Label>
+
+                    <HBox alignment="CENTER_LEFT" spacing="30.0">
+                        <padding>
+                            <Insets top="15.0" />
+                        </padding>
+
+                        <!-- Main Weather Info -->
+                        <VBox alignment="CENTER_LEFT" spacing="5.0">
+                            <Label fx:id="cityNameLabel" styleClass="city-name" text="London, UK">
+                                <font>
+                                    <Font name="System Bold" size="20.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="currentTempLabel" styleClass="current-temp" text="22°C">
+                                <font>
+                                    <Font name="System Bold" size="48.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="feelsLikeLabel" styleClass="feels-like" text="Feels like 25°C" />
+                            <Label fx:id="conditionLabel" styleClass="condition" text="Partly Cloudy" />
+                            <Label fx:id="timeLabel" styleClass="time" text="Last Updated: 2024-01-15 14:30" />
+                        </VBox>
+
+                        <!-- Weather Icon -->
+                        <ImageView fx:id="weatherIcon" fitHeight="100.0" fitWidth="100.0" preserveRatio="true" />
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <!-- Weather Details -->
+                        <VBox spacing="8.0">
+                            <Label fx:id="humidityLabel" styleClass="detail-label" text="Humidity: 65%" />
+                            <Label fx:id="cloudCoverageLabel" styleClass="detail-label" text="Cloud Coverage: 40%" />
+                            <Label fx:id="precipitationLabel" styleClass="detail-label" text="Precipitation: 0.0 mm" />
+                            <Label fx:id="aqiLabel" styleClass="detail-label" text="AQI: 2" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Forecast Section -->
+                <VBox styleClass="weather-section">
+                    <Label styleClass="section-title" text="3-Day Forecast">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                    </Label>
+
+                    <HBox fx:id="forecastContainer" spacing="20.0">
+                        <padding>
+                            <Insets top="15.0" />
+                        </padding>
+                    </HBox>
+                </VBox>
+
+                <!-- Historical Data Section -->
+                <VBox styleClass="weather-section">
+                    <VBox fx:id="historicalContainer" spacing="10.0">
+                        <padding>
+                            <Insets top="15.0" />
+                        </padding>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
