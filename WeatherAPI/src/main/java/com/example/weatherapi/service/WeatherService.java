@@ -25,7 +25,7 @@ import java.util.List;
 public class WeatherService {
 
     // Replace with your actual API key from weatherapi.com
-    private static final String API_KEY = "6d7bf5038bda443696193228252008";
+    private static final String API_KEY = "Your API KEY over here";
     private static final String BASE_URL = "http://api.weatherapi.com/v1";
 
     private final HttpClient httpClient;
